@@ -9,7 +9,12 @@ io.on('connection', function(socket) {
   console.log("Connection succesful!");
   ss(socket).on('photo-added', function(stream, data){
     var filename = path.basename(data.name);
-    stream.pipe(fs.createWriteStream(filename));
+    var writeStream = fs.createWriteStream(filename);
+    writeStream.on('close', function(){
+      console.log("Stream finished writing");
+    });
+    stream.pipe(writeStream);
+
   });
   socket.on('disconnect', function(){
     console.log("Client disconnected");
