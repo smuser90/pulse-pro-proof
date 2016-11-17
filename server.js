@@ -7,15 +7,26 @@ var PORT = 80;
 
 io.on('connection', function(socket) {
   console.log("Connection succesful!");
-  ss(socket).on('photo-added', function(stream, data){
-    var filename = path.basename(data.name);
-    var writeStream = fs.createWriteStream(filename);
-    writeStream.on('close', function(){
-      console.log("Stream finished writing");
-    });
-    stream.pipe(writeStream);
-
+  var timeStart = 0;
+  socket.on('push-photo', function(data){
+    console.log("got photo push");
   });
+  // ss(socket).on('photo-added', function(stream, data){
+  //   var filename = path.basename(data.name);
+  //   var writeStream = fs.createWriteStream(filename);
+  //   writeStream.on('open', function(){
+  //     console.log("Stream opened");
+  //     timeStart = Date.now();
+  //   });
+  //   writeStream.on('close', function(){
+  //     console.log("Stream finished writing");
+  //     var timeEnd = Date.now();
+  //     var transmitTime = timeEnd - timeStart;
+  //     console.log("Transmit time: "+transmitTime+"ms");
+  //   });
+  //   stream.pipe(writeStream);
+  //
+  // });
   socket.on('disconnect', function(){
     console.log("Client disconnected");
   });

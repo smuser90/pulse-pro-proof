@@ -6,8 +6,10 @@ var stream = ss.createStream();
 
 socket.on('connect', function(){
   console.log('We are in business!');
-  ss(socket).emit('photo-added', stream, {name: filename});
-  fs.createReadStream(filename).pipe(stream);
+  var fileData = 0;
+  socket.emit('push-photo', {fd: fileData});
+  // ss(socket).emit('photo-added', stream, {name: filename});
+  // fs.createReadStream(filename).pipe(stream);
 });
 
 socket.on('event', function(data){});
