@@ -7,9 +7,12 @@ var PORT = 80;
 
 io.on('connection', function(socket) {
   console.log("Connection succesful!");
-  var timeStart = 0;
+  var timeStart = Date.now();
   socket.on('push-photo', function(data){
     console.log("got photo push");
+    console.dir(data.fd);
+    var transmitTime = Date.now() - timeStart;
+    console.log("Transmit time: "+transmitTime+"ms");
   });
   // ss(socket).on('photo-added', function(stream, data){
   //   var filename = path.basename(data.name);
